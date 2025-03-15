@@ -22,11 +22,6 @@ func ParseDNAFile(reader io.Reader) (*model.SNPCollection, error) {
 		}
 	}
 
-	// Skip the column header line (rsid	chromosome	position	allele1	allele2)
-	if scanner.Scan() {
-		// We've now skipped the header line
-	}
-
 	// Process data lines
 	lineCount := 0
 	for scanner.Scan() {
