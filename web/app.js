@@ -482,7 +482,7 @@ function displaySearchResult(data, searchTime) {
     // Generate links in the frontend
     const rsidNum = data.rsid.toLowerCase().startsWith('rs') ? data.rsid.substring(2) : data.rsid;
     const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
-    const chatgptUrl = `https://chatgpt.com/?q=Explain+this+allele+and+genotype+${data.rsid}+Genotype:+${data.allele1}+${data.allele2}`;
+    const chatgptUrl = `https://chatgpt.com/?q=I+have+${data.rsid}+with+${data.allele1}${data.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
 
     // Display the result in a table format
     let html = `
@@ -511,7 +511,7 @@ function displaySearchResult(data, searchTime) {
                         <td>${data.allele2}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT about this SNP">
+                                <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
                                     <i class="bi bi-chat-square-text"></i>
                                 </a>
                                 <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary" title="View on SNPedia">
@@ -568,7 +568,7 @@ function displayBatchResults(results, requestedRsids, searchTime) {
         // Generate links in the frontend
         const rsidNum = result.rsid.toLowerCase().startsWith('rs') ? result.rsid.substring(2) : result.rsid;
         const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
-        const chatgptUrl = `https://chatgpt.com/?q=Explain+this+allele+and+genotype+${result.rsid}+Genotype:+${result.allele1}+${result.allele2}`;
+        const chatgptUrl = `https://chatgpt.com/?q=I+have+${result.rsid}+with+${result.allele1}${result.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
 
         html += `
             <tr>
@@ -583,7 +583,7 @@ function displayBatchResults(results, requestedRsids, searchTime) {
                 <td>${result.allele2}</td>
                 <td>
                     <div class="d-flex">
-                        <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT about this SNP">
+                        <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
                             <i class="bi bi-chat-square-text"></i>
                         </a>
                         <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary" title="View on SNPedia">
@@ -643,13 +643,13 @@ function displayNoResults(rsid) {
     resultsContainer.innerHTML = `
         <div class="alert alert-warning">
             <p>No match found for: ${normalizedRsid}</p>
-            <p>This RSID may not be in your DNA file, but you can still check:
+            <p>This RSID may not be in your file, but you can still check:
                <div class="mt-2">
                    <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
                        <i class="bi bi-box-arrow-up-right me-1"></i>SNPedia
                    </a>
                    <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success">
-                       <i class="bi bi-chat-square-text me-1"></i>Ask ChatGPT
+                       <i class="bi bi-chat-square-text me-1"></i>ChatGPT
                    </a>
                </div>
             </p>
