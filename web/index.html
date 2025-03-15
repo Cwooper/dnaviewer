@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Viewer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container mt-4 mb-5">
+        <!-- Instructions Banner -->
+        <div class="instructions-banner mb-3" id="instructionsBanner">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                    <span class="fw-bold">How to get your DNA data</span>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-primary" id="expandInstructions">
+                        <i class="bi bi-info-circle me-1"></i> Show Instructions
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" id="closeInstructionsBanner">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="instructions-content mt-3 d-none" id="instructionsContent">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Getting Started with DNAViewer</h5>
+
+                        <div class="step-content">
+                            <h6><span class="step-number">1</span> Request your DNA data</h6>
+                            <ul>
+                                <li>Go to your <a href="https://www.ancestry.com/dna/settings" target="_blank">Ancestry
+                                        Settings</a></li>
+                                <li>Click on your name</li>
+                                <li>Scroll to the bottom</li>
+                                <li>Click on "Download DNA data"</li>
+                                <li>Click through requesting the data</li>
+                            </ul>
+                        </div>
+
+                        <div class="step-content">
+                            <h6><span class="step-number">2</span> Wait for the email from Ancestry</h6>
+                            <ul>
+                                <li>Wait about 30 minutes</li>
+                                <li>Click the link in the email</li>
+                                <li>Click "Download DNA data"</li>
+                            </ul>
+                        </div>
+
+                        <div class="step-content">
+                            <h6><span class="step-number">3</span> Extract the zip file</h6>
+                        </div>
+
+                        <div class="step-content">
+                            <h6><span class="step-number">4</span> Run the <code>DNAViewer.exe</code> program</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow main-card">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 class="h3 mb-0">DNA Viewer</h1>
+                                <p class="mb-0">Search and analyze AncestryDNA data</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <!-- Help button -->
+                                <button class="btn btn-sm btn-light me-2" id="helpButton" title="Show Instructions">
+                                    <i class="bi bi-question-circle"></i>
+                                </button>
+                                <div class="file-badge" id="fileBadge">
+                                    <span id="fileStatus">No File Loaded</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- File Upload Section -->
+                        <div id="fileUploadSection" class="row mb-4">
+                            <div class="col-12">
+                                <div class="file-upload-card">
+                                    <label for="dnaFile" class="form-label">Select AncestryDNA.txt file</label>
+                                    <div class="custom-file-upload">
+                                        <input class="form-control" type="file" id="dnaFile" accept=".txt">
+                                        <div class="file-upload-icon">
+                                            <i class="bi bi-cloud-arrow-up"></i>
+                                            <p>Drag & drop or click to browse</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="searchSection" class="d-none">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3 search-container">
+                                        <label for="rsidSearch" class="form-label">Search for RSID</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">rs</span>
+                                            <input type="text" class="form-control" id="rsidSearch"
+                                                placeholder="e.g. 3131972 or rs3131972">
+                                            <button class="btn btn-primary" type="button" id="searchButton">
+                                                <i class="bi bi-search me-1"></i>Search
+                                            </button>
+                                        </div>
+                                        <!-- Suggestions dropdown positioned outside any container constraints -->
+                                        <div id="suggestionsList" class="suggestions-dropdown" style="display: none;">
+                                        </div>
+                                        <div class="form-text">The "rs" prefix is optional - we'll add it if needed
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="batchSearch" class="form-label">Batch Search</label>
+                                        <div class="input-group">
+                                            <textarea class="form-control" id="batchSearch" rows="1"
+                                                placeholder="3131972, 114525117, rs4040617"></textarea>
+                                            <button class="btn btn-secondary" type="button" id="batchSearchButton">
+                                                <i class="bi bi-search me-1"></i>Search All
+                                            </button>
+                                        </div>
+                                        <div class="form-text">Enter multiple RSIDs separated by commas (with or without
+                                            "rs" prefix)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="loadingIndicator" class="text-center d-none">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-2" id="loadingMessage">Processing...</p>
+                                </div>
+
+                                <div id="resultsSection" class="d-none">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h3><i class="bi bi-clipboard-data me-2"></i>Results</h3>
+                                        <button id="clearResults" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-x-circle me-1"></i>Clear
+                                        </button>
+                                    </div>
+                                    <div id="searchResults" class="p-3 border rounded bg-light">
+                                        <p class="text-muted">Search results will appear here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Modal -->
+    <div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="instructionsModalLabel">How to Get Your DNA Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="step-content">
+                        <h6><span class="step-number">1</span> Request your DNA data</h6>
+                        <ul>
+                            <li>Go to your <a href="https://www.ancestry.com/dna/settings" target="_blank">Ancestry
+                                    Settings</a></li>
+                            <li>Click on your name</li>
+                            <li>Scroll to the bottom</li>
+                            <li>Click on "Download DNA data"</li>
+                            <li>Click through requesting the data</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-content">
+                        <h6><span class="step-number">2</span> Wait for the email from Ancestry</h6>
+                        <ul>
+                            <li>Wait about 30 minutes</li>
+                            <li>Click the link in the email</li>
+                            <li>Click "Download DNA data"</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-content">
+                        <h6><span class="step-number">3</span> Extract the zip file</h6>
+                    </div>
+
+                    <div class="step-content">
+                        <h6><span class="step-number">4</span> Run the <code>DNAViewer.exe</code> program</h6>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
