@@ -492,10 +492,10 @@ function displaySearchResult(data, searchTime) {
                 <thead>
                     <tr>
                         <th>RSID</th>
-                        <th>Chromosome</th>
-                        <th>Position</th>
                         <th>Allele 1</th>
                         <th>Allele 2</th>
+                        <th>Chromosome</th>
+                        <th>Position</th>
                         <th>Links</th>
                     </tr>
                 </thead>
@@ -506,10 +506,10 @@ function displaySearchResult(data, searchTime) {
                                 ${data.rsid}
                             </a>
                         </td>
-                        <td>${data.chromosome}</td>
-                        <td>${data.position.toLocaleString()}</td>
                         <td>${data.allele1}</td>
                         <td>${data.allele2}</td>
+                        <td>${data.chromosome}</td>
+                        <td>${data.position.toLocaleString()}</td>
                         <td>
                             <div class="d-flex">
                                 <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
@@ -557,10 +557,10 @@ function displayBatchResults(results, requestedRsids, searchTime) {
                 <thead>
                     <tr>
                         <th>RSID</th>
-                        <th>Chromosome</th>
-                        <th>Position</th>
                         <th>Allele 1</th>
                         <th>Allele 2</th>
+                        <th>Chromosome</th>
+                        <th>Position</th>
                         <th>Links</th>
                     </tr>
                 </thead>
@@ -583,10 +583,10 @@ function displayBatchResults(results, requestedRsids, searchTime) {
                         ${result.rsid}
                     </a>
                 </td>
-                <td>${result.chromosome}</td>
-                <td>${result.position.toLocaleString()}</td>
                 <td>${result.allele1}</td>
                 <td>${result.allele2}</td>
+                <td>${result.chromosome}</td>
+                <td>${result.position.toLocaleString()}</td>
                 <td>
                     <div class="d-flex">
                         <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
