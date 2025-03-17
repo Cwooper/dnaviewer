@@ -482,7 +482,7 @@ function displaySearchResult(data, searchTime) {
     // Generate links in the frontend
     const rsidNum = data.rsid.toLowerCase().startsWith('rs') ? data.rsid.substring(2) : data.rsid;
     const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
-    const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${data.allele1};${data.allele2})`;
+    const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${data.allele2};${data.allele1})`;
     const chatgptUrl = `https://chatgpt.com/?q=I+have+${data.rsid}+with+${data.allele1}${data.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
 
     // Display the result in a table format
@@ -572,7 +572,7 @@ function displayBatchResults(results, requestedRsids, searchTime) {
         // Generate links in the frontend
         const rsidNum = result.rsid.toLowerCase().startsWith('rs') ? result.rsid.substring(2) : result.rsid;
         const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
-        const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${result.allele1};${result.allele2})`;
+        const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${result.allele2};${result.allele1})`;
         const chatgptUrl = `https://chatgpt.com/?q=I+have+${result.rsid}+with+${result.allele1}${result.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
     
         // Then in the HTML table Links column:
