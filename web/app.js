@@ -482,6 +482,7 @@ function displaySearchResult(data, searchTime) {
     // Generate links in the frontend
     const rsidNum = data.rsid.toLowerCase().startsWith('rs') ? data.rsid.substring(2) : data.rsid;
     const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
+    const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${data.allele1};${data.allele2})`;
     const chatgptUrl = `https://chatgpt.com/?q=I+have+${data.rsid}+with+${data.allele1}${data.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
 
     // Display the result in a table format
@@ -514,8 +515,11 @@ function displaySearchResult(data, searchTime) {
                                 <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
                                     <i class="bi bi-chat-square-text"></i>
                                 </a>
-                                <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary" title="View on SNPedia">
+                                <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary me-2" title="View RSID on SNPedia">
                                     <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                                <a href="${genotypeUrl}" target="_blank" class="btn btn-sm btn-outline-info" title="View (${data.allele1};${data.allele2}) Genotype on SNPedia">
+                                    <i class="bi bi-clipboard2-pulse"></i>
                                 </a>
                             </div>
                         </td>
@@ -568,8 +572,10 @@ function displayBatchResults(results, requestedRsids, searchTime) {
         // Generate links in the frontend
         const rsidNum = result.rsid.toLowerCase().startsWith('rs') ? result.rsid.substring(2) : result.rsid;
         const snpediaUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}`;
+        const genotypeUrl = `https://www.snpedia.com/index.php/Rs${rsidNum}(${result.allele1};${result.allele2})`;
         const chatgptUrl = `https://chatgpt.com/?q=I+have+${result.rsid}+with+${result.allele1}${result.allele2}.+Simply+and+clearly+explain+what+this+allele+and+genotype+combination+implies+for+me.+Highlight+the+benefits+and+risks,+if+any,+of+this+genotype.`;
-
+    
+        // Then in the HTML table Links column:
         html += `
             <tr>
                 <td>
@@ -586,8 +592,11 @@ function displayBatchResults(results, requestedRsids, searchTime) {
                         <a href="${chatgptUrl}" target="_blank" class="btn btn-sm btn-outline-success me-2" title="Ask ChatGPT">
                             <i class="bi bi-chat-square-text"></i>
                         </a>
-                        <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary" title="View on SNPedia">
+                        <a href="${snpediaUrl}" target="_blank" class="btn btn-sm btn-outline-primary me-2" title="View RSID on SNPedia">
                             <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <a href="${genotypeUrl}" target="_blank" class="btn btn-sm btn-outline-info" title="View (${result.allele1};${result.allele2}) Genotype on SNPedia">
+                            <i class="bi bi-clipboard2-pulse"></i>
                         </a>
                     </div>
                 </td>
